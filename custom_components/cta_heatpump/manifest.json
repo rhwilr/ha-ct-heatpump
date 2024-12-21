@@ -1,10 +1,12 @@
 {
   "domain": "cta_heatpump",
   "name": "cta-heatpump",
+  "version": "0.0.1",
   "codeowners": ["@rhwilr"],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://www.home-assistant.io/integrations/cta_heatpump",
+  "documentation": "https://github.com/rhwilr/ha-ct-heatpump",
+  "issue_tracker": "https://github.com/rhwilr/ha-ct-heatpump",
   "homekit": {},
   "iot_class": "local_polling",
   "requirements": ["websockets==14.1", "xmltodict==0.14.2"],
