@@ -1,0 +1,13 @@
+{
+  "domain": "cta_heatpump",
+  "name": "cta-heatpump",
+  "codeowners": ["@rhwilr"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://www.home-assistant.io/integrations/cta_heatpump",
+  "homekit": {},
+  "iot_class": "local_polling",
+  "requirements": ["websockets==14.1", "xmltodict==0.14.2"],
+  "ssdp": [],
+  "zeroconf": []
+}
