@@ -1,6 +1,10 @@
 """Platform for sensor integration."""
 
-from homeassistant.components.sensor import SensorEntity
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorStateClass,
+)
 from homeassistant.const import (
     PERCENTAGE,
     UnitOfEnergy,
@@ -111,9 +115,6 @@ class SensorBase(SensorEntity):
         return f"CTA Heatpump - {self._name}"
 
     def update(self) -> None:
-        print(
-            f"update: {self._name} - {self._device.get_lux_value(self._lux_cat, self._lux_id)}"
-        )
         lux_value = self._device.get_lux_value(self._lux_cat, self._lux_id)
 
         if lux_value is not None:
@@ -125,10 +126,17 @@ class TemeraturSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
+        self.dedevice_class = SensorDeviceClass.TEMPERATURE
+        self.state_class = SensorStateClass.MEASUREMENT
+
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement."""
         return UnitOfTemperature.CELSIUS
+
+    @property
+    def icon(self) -> str:
+        return "mdi:thermometer"
 
 
 class FlowRateSensor(SensorBase):
@@ -136,10 +144,17 @@ class FlowRateSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
+        self.dedevice_class = SensorDeviceClass.VOLUME_FLOW_RATE
+        self.state_class = SensorStateClass.MEASUREMENT
+
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement."""
         return UnitOfVolumeFlowRate.LITERS_PER_MINUTE
+
+    @property
+    def icon(self) -> str:
+        return "mdi:water"
 
 
 class StatusSensor(SensorBase):
@@ -147,16 +162,29 @@ class StatusSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
+        self.state_class = SensorStateClass.MEASUREMENT
+
+    @property
+    def icon(self) -> str:
+        return "mdi:format-list-bulleted"
+
 
 class PowerSensor(SensorBase):
     def __init__(self, device, name, lux_cat, lux_id):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
+        self.dedevice_class = SensorDeviceClass.POWER
+        self.state_class = SensorStateClass.MEASUREMENT
+
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement."""
         return UnitOfPower.KILO_WATT
+
+    @property
+    def icon(self) -> str:
+        return "mdi:heat-pump"
 
 
 class PercentageSensor(SensorBase):
@@ -164,10 +192,16 @@ class PercentageSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
+        self.state_class = SensorStateClass.MEASUREMENT
+
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement."""
         return PERCENTAGE
+
+    @property
+    def icon(self) -> str:
+        return "mdi:snowflake-melt"
 
 
 class EnergySensor(SensorBase):
@@ -175,7 +209,14 @@ class EnergySensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
+        self.dedevice_class = SensorDeviceClass.ENERGY
+        self.state_class = SensorStateClass.TOTAL_INCREASING
+
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement."""
         return UnitOfEnergy.KILO_WATT_HOUR
+
+    @property
+    def icon(self) -> str:
+        return "mdi:lightning-bolt"

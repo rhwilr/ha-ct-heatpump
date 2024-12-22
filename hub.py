@@ -56,21 +56,24 @@ class Heatpump:
 
     async def update_ws(self):
         while True:
-            await asyncio.sleep(3)
+            try:
+                await asyncio.sleep(15)
 
-            async with connect(
-                f"ws://{self.hub.host}:8214", subprotocols=self.subprotocols
-            ) as websocket:
-                await websocket.send(f"LOGIN;{self.hub.login}")
+                async with connect(
+                    f"ws://{self.hub.host}:8214", subprotocols=self.subprotocols
+                ) as websocket:
+                    await websocket.send(f"LOGIN;{self.hub.login}")
 
-                # Navigation
-                await self.on_message(websocket, await websocket.recv())
+                    # Navigation
+                    await self.on_message(websocket, await websocket.recv())
 
-                # Get Content
-                await self.on_message(websocket, await websocket.recv())
+                    # Get Content
+                    await self.on_message(websocket, await websocket.recv())
 
-                # Close connection
-                await websocket.close()
+                    # Close connection
+                    await websocket.close()
+            except Exception as err:
+                print(f"Error: {err}")
 
     def _get_info_id(self, data: dict) -> str:
         return data["Navigation"]["item"]["@id"]
@@ -157,7 +160,7 @@ class lux_value:
             self.value = float(self.value[:-3])
             self.unit = "bar"
         elif self.value.endswith("l/h"):
-            self.value = float(self.value[:-3]) / 60
+            self.value = round(float(self.value[:-3]) / 60, 3)
             self.unit = "l/h"
         elif self.value.endswith("V"):
             self.value = float(self.value[:-1])
