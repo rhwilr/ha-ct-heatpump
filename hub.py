@@ -57,8 +57,6 @@ class Heatpump:
     async def update_ws(self):
         while True:
             try:
-                await asyncio.sleep(15)
-
                 async with connect(
                     f"ws://{self.hub.host}:8214", subprotocols=self.subprotocols
                 ) as websocket:
@@ -72,6 +70,8 @@ class Heatpump:
 
                     # Close connection
                     await websocket.close()
+
+                await asyncio.sleep(15)
             except Exception as err:
                 print(f"Error: {err}")
 

@@ -126,7 +126,7 @@ class TemeraturSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
-        self.dedevice_class = SensorDeviceClass.TEMPERATURE
+        self.device_class = SensorDeviceClass.TEMPERATURE
         self.state_class = SensorStateClass.MEASUREMENT
 
     @property
@@ -144,7 +144,7 @@ class FlowRateSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
-        self.dedevice_class = SensorDeviceClass.VOLUME_FLOW_RATE
+        self.device_class = SensorDeviceClass.VOLUME_FLOW_RATE
         self.state_class = SensorStateClass.MEASUREMENT
 
     @property
@@ -174,7 +174,7 @@ class PowerSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
-        self.dedevice_class = SensorDeviceClass.POWER
+        self.device_class = SensorDeviceClass.POWER
         self.state_class = SensorStateClass.MEASUREMENT
 
     @property
@@ -209,7 +209,7 @@ class EnergySensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
-        self.dedevice_class = SensorDeviceClass.ENERGY
+        self.device_class = SensorDeviceClass.ENERGY
         self.state_class = SensorStateClass.TOTAL_INCREASING
 
     @property
