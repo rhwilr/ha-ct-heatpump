@@ -162,8 +162,6 @@ class StatusSensor(SensorBase):
         """Initialize the sensor."""
         super().__init__(device, name, lux_cat, lux_id)
 
-        self.state_class = SensorStateClass.MEASUREMENT
-
     @property
     def icon(self) -> str:
         return "mdi:format-list-bulleted"
